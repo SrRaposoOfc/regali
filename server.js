@@ -4,7 +4,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3001;
 const appDir = __dirname;
-const publicDir = path.join(__dirname, '..', 'public');
+const publicDir = path.join(__dirname, 'public');
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -52,6 +52,14 @@ const server = http.createServer((req, res) => {
 
   if (url.startsWith('/generated/')) {
     const filePath = safeResolve(publicDir, url.replace(/^\//, ''));
+
+    console.log({
+      url,
+      publicDir,
+      filePath,
+      exists: filePath && fs.existsSync(filePath)
+    });
+
     if (filePath && fs.existsSync(filePath)) {
       sendFile(res, filePath);
       return;
