@@ -1,0 +1,16 @@
+{
+  "name": "regali-della-cucina",
+  "version": "1.0.0",
+  "description": "Site do restaurante italiano Regali Della Cucina em Brasília",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": ["restaurante", "italiano", "brasilia"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

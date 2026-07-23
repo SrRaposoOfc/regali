@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regali Della Cucina - Restaurante Italiano em Brasília</title>
+    <meta name="description" content="Descubra o Regali Della Cucina, um restaurante italiano em Brasília com pratos deliciosos e ambiente acolhedor.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --vermelho: #BF2C2C;
+            --verde: #4B9C7C;
+            --creme: #FCE5D9;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Hero Section com Parallax */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('generated/restaurante-foto-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            will-change: transform;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        /* Botões com animação */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--vermelho) 0%, #e74c3c 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(191, 44, 44, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(191, 44, 44, 0.4);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Pulse Animation para CTA principal */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(191, 44, 44, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(191, 44, 44, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(191, 44, 44, 0);
+            }
+        }
+        
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Stagger Animation */
+        .stagger {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .stagger.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Gallery Hover Effect */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Review Card */
+        .review-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--verde);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--verde);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--vermelho);
+        }
+        
+        /* Mobile Menu */
+        #mainNav {
+            z-index: 1200;
+        }
+
+        .mobile-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.58);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            z-index: 1201;
+        }
+
+        .mobile-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: auto;
+            width: min(82vw, 340px);
+            height: 100dvh;
+            padding: 24px;
+            background: #171211;
+            border-left: 1px solid rgba(252, 229, 217, 0.16);
+            box-shadow: -18px 0 45px rgba(0, 0, 0, 0.42);
+            transform: translateX(110%);
+            transition: transform 0.28s ease;
+            z-index: 1202;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(252, 229, 217, 0.14);
+        }
+
+        .mobile-menu-title {
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            line-height: 1.2;
+        }
+
+        .mobile-close-btn {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 54px;
+            padding: 0 4px;
+            color: var(--creme);
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(252, 229, 217, 0.1);
+            text-decoration: none;
+        }
+
+        .mobile-menu a::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: var(--verde);
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* Loading Animation */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--vermelho);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav" class="fixed w-full glass-card">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-white">
+                    <span style="font-family: 'Poppins', sans-serif;">Regali Della Cucina</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-yellow-300 transition">Início</a>
+                    <a href="#sobre" class="text-white hover:text-yellow-300 transition">Sobre</a>
+                    <a href="#galeria" class="text-white hover:text-yellow-300 transition">Galeria</a>
+                    <a href="#avaliacoes" class="text-white hover:text-yellow-300 transition">Avaliações</a>
+                    <a href="#contato" class="text-white hover:text-yellow-300 transition">Contato</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white" id="menuBtn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-backdrop md:hidden" id="mobileBackdrop"></div>
+        <aside class="mobile-menu md:hidden" id="mobileMenu" aria-hidden="true">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-title">Regali Della<br>Cucina</div>
+                <button class="mobile-close-btn" id="closeMenu" aria-label="Fechar menu">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-links">
+                <a href="#home">Início</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#galeria">Galeria</a>
+                <a href="#avaliacoes">Avaliações</a>
+                <a href="#contato">Contato</a>
+            </div>
+        </aside>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="parallax-bg"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 fade-in">
+                Regali Della Cucina
+            </h1>
+            <p class="text-xl md:text-2xl text-white mb-8 fade-in" style="animation-delay: 0.2s;">
+                Uma experiência gastronômica italiana autêntica em Brasília
+            </p>
+            <a href="#contato" class="btn-primary pulse fade-in" style="animation-delay: 0.4s;">
+                Faça sua Reserva
+            </a>
+        </div>
+    </section>
+    
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-20" style="background-color: var(--creme);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in" style="color: var(--vermelho);">
+                Nossa História
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <p class="text-lg mb-6 text-gray-700">
+                        No coração de Brasília, o Regali Della Cucina nasceu do sonho de trazer a autêntica culinária italiana para a capital federal. Com mais de uma década de tradição, nosso restaurante combina receitas familiares passadas por gerações com a sofisticação de um ambiente moderno e acolhedor.
+                    </p>
+                    <p class="text-lg mb-6 text-gray-700">
+                        Nossa filosofia é simples: ingredientes frescos, preparação artesanal e muito amor em cada prato. Cada refeição é uma celebração da rica tradição gastronômica italiana, preparada por chefs apaixonados que transformam ingredientes simples em experiências memoráveis.
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        Seja para um jantar romântico a dois ou uma reunião familiar, o Regali Della Cucina oferece o ambiente perfeito para criar momentos especiais ao redor de uma boa mesa.
+                    </p>
+                </div>
+                <div class="fade-in gallery-item">
+                    <img src="generated/restaurante-foto-2.jpg" alt="Pratos do Restaurante" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Galeria Section -->
+    <section id="galeria" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in" style="color: var(--verde);">
+                Galeria
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="gallery-item stagger">
+                    <img src="generated/restaurante-foto-1.jpg" alt="Ambiente do Restaurante" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item stagger" style="animation-delay: 0.1s;">
+                    <img src="generated/restaurante-foto-2.jpg" alt="Pratos Especiais" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item stagger" style="animation-delay: 0.2s;">
+                    <img src="generated/restaurante-foto-3.jpg" alt="Interior do Restaurante" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item stagger" style="animation-delay: 0.3s;">
+                    <img src="generated/restaurante-foto-4.jpg" alt="Mesa Preparada" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item stagger" style="animation-delay: 0.4s;">
+                    <img src="generated/restaurante-foto-5.jpg" alt="Detalhes do Ambiente" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item stagger" style="animation-delay: 0.5s;">
+                    <img src="generated/restaurante-foto-1.jpg" alt="Vista do Salão" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Avaliações Section -->
+    <section id="avaliacoes" class="py-20" style="background: linear-gradient(135deg, rgba(252, 229, 217, 0.5), rgba(75, 156, 124, 0.1));">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in" style="color: var(--vermelho);">
+                O Que Nossos Clientes Dizem
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="review-card stagger">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "Ambiente maravilhoso e comida excepcional! O atendimento é impecável e os pratos são autênticos. Melhor restaurante italiano de Brasília!"
+                    </p>
+                    <div class="font-semibold" style="color: var(--verde);">Maria Silva</div>
+                </div>
+                
+                <div class="review-card stagger" style="animation-delay: 0.2s;">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "Uma experiência gastronômica única! Os pratos são preparados com muito cuidado e o sabor é incomparável. Voltarei com certeza!"
+                    </p>
+                    <div class="font-semibold" style="color: var(--verde);">João Santos</div>
+                </div>
+                
+                <div class="review-card stagger" style="animation-delay: 0.4s;">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                        <i class="fas fa-star" style="color: gold;"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "Perfeito para ocasiões especiais! O ambiente é elegante e acolhedor. A carta de vinhos é excelente e combina perfeitamente com os pratos."
+                    </p>
+                    <div class="font-semibold" style="color: var(--verde);">Ana Costa</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contato Section -->
+    <section id="contato" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 fade-in" style="color: var(--verde);">
+                Entre em Contato
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <div class="bg-white rounded-lg p-8 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--vermelho);">Informações</h3>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-map-marker-alt text-2xl mr-4" style="color: var(--verde);"></i>
+                                <div>
+                                    <h4 class="font-semibold">Endereço</h4>
+                                    <p class="text-gray-600">Brasília - DF</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-phone text-2xl mr-4" style="color: var(--verde);"></i>
+                                <div>
+                                    <h4 class="font-semibold">Telefone</h4>
+                                    <a href="tel:+5561998840669" class="text-gray-600 hover:text-blue-600 transition">
+                                        (61) 99884-0669
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center mb-4">
+                                <i class="fab fa-whatsapp text-2xl mr-4" style="color: var(--verde);"></i>
+                                <div>
+                                    <h4 class="font-semibold">WhatsApp</h4>
+                                    <a href="https://wa.me/5561998840669?text=Olá%2C%20vim%20pelo%20site!" 
+                                       class="text-gray-600 hover:text-green-600 transition">
+                                        Envie uma mensagem
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center mb-4">
+                                <i class="fab fa-instagram text-2xl mr-4" style="color: var(--verde);"></i>
+                                <div>
+                                    <h4 class="font-semibold">Instagram</h4>
+                                    <a href="https://instagram.com/regalidellacucina" target="_blank" 
+                                       class="text-gray-600 hover:text-pink-600 transition">
+                                        @regalidellacucina
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-white rounded-lg p-8 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--vermelho);">Horário de Funcionamento</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between py-3 border-b">
+                                <span class="font-semibold">Segunda-feira</span>
+                                <span class="text-gray-600">Fechado</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b">
+                                <span class="font-semibold">Terça a Quinta</span>
+                                <span class="text-gray-600">12:00 - 15:00 | 19:00 - 23:00</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b">
+                                <span class="font-semibold">Sexta e Sábado</span>
+                                <span class="text-gray-600">12:00 - 15:00 | 19:00 - 00:00</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="font-semibold">Domingo</span>
+                                <span class="text-gray-600">12:00 - 16:00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="https://wa.me/5561998840669?text=Olá%2C%20vim%20pelo%20site!" 
+                               class="btn-primary w-full text-center">
+                                Faça sua Reserva
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Regali Della Cucina</h3>
+                    <p class="text-gray-400">
+                        Tradição e sabor italiano no coração de Brasília.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#sobre" class="text-gray-400 hover:text-white transition">Sobre Nós</a></li>
+                        <li><a href="#galeria" class="text-gray-400 hover:text-white transition">Galeria</a></li>
+                        <li><a href="#avaliacoes" class="text-gray-400 hover:text-white transition">Avaliações</a></li>
+                        <li><a href="#contato" class="text-gray-400 hover:text-white transition">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://instagram.com/regalidellacucina" target="_blank" 
+                           class="text-gray-400 hover:text-white transition text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/5561998840669?text=Olá%2C%20vim%20pelo%20site!" 
+                           class="text-gray-400 hover:text-white transition text-2xl">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2024 Regali Della Cucina. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/5561998840669?text=Olá%2C%20vim%20pelo%20site!" 
+       class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <script>
+        // Mobile Menu
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileBackdrop.classList.add('active');
+            document.body.classList.add('menu-open');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileBackdrop.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+        
+        menuBtn.addEventListener('click', openMobileMenu);
+        closeMenu.addEventListener('click', closeMobileMenu);
+        mobileBackdrop.addEventListener('click', closeMobileMenu);
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.parallax-bg');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+        
+        // Fade In Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Observe all stagger elements
+        document.querySelectorAll('.stagger').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add ripple effect to buttons
+        const buttons = document.querySelectorAll('.btn-primary');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Gallery Modal (optional enhancement)
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <img src="${img.src}" alt="${img.alt}" class="max-w-full max-h-full rounded-lg">
+                    <button class="absolute top-4 right-4 text-white text-4xl">&times;</button>
+                `;
+                document.body.appendChild(modal);
+                
+                modal.addEventListener('click', () => {
+                    modal.remove();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
